@@ -11,4 +11,4 @@ Logged data includes:
 * Warning if response takes longer than set time
 
 
-Logo & promo design by [Andy Merskin](www.AndyMerskin.com)
+Logo & promo design by [Andy Merskin](http://www.AndyMerskin.com)
