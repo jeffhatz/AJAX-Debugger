@@ -99,7 +99,7 @@ AJAXDebugger.load = function(request) {
 		requestLocation,
 		responseStatus = request.response.status + " " + request.response.statusText,
 		responseSize = request.response.bodySize + request.response.headersSize,
-		responseTime = request.time + 1500,
+		responseTime = request.time,
 		responseTimePrint,
 		textSeperator = " - ",
 		prefGroupExpanded = localStorage["prefGroupExpanded"],
@@ -123,7 +123,7 @@ AJAXDebugger.load = function(request) {
 
 	var header = 
 		"XHR Loaded (" + 
-		"getData" + textSeperator +
+		requestLocation + textSeperator +
 		responseStatus + textSeperator +
 		responseTimePrint + textSeperator +
 		responseSize +
@@ -137,8 +137,7 @@ AJAXDebugger.load = function(request) {
 		else { Console.groupCollapsed(header); }
 
 		/* URL */
-		Console.info("http://www.foobar.com/getData");
-		// Console.info(url + qs);
+		Console.info(url + qs);
 
 		/* Long response warning */
 		if (prefTimerEnabled == "true" && responseTime >= prefTimerTimeout) {
