@@ -1,0 +1,170 @@
+/* AJAX Debugger Copyright (C) 2013 Jeff Hatz. All rights reserved. */
+
+
+body {
+	font-family: Verdana, Tahoma, Helvetica, Arial;
+	background: #CCCCCC;
+	color: #2B2B2B;
+	font-size: 14px;
+}
+
+#options {
+	background: #FFFFFF;
+	width: 400px;
+	margin: 50px auto 10px;
+	padding: 12px;
+	border-radius: 10px;
+	box-shadow: 0 5px 15px #888;
+}
+	#options.pong {
+		width: 640px !important;
+	}
+
+#badgerifiedText {
+	position: relative;
+}
+	#badgerifiedText2 {
+		position: absolute;
+		color: #555;
+		top: 40px;
+		left: 300px;
+		background-color: #E0E4FF;
+		font-size: 15px;
+		padding: 4px 8px 5px;
+		border: 1px solid #666666;
+		border-radius: 11px;
+		white-space: nowrap;
+	}
+
+
+
+/*
+ * Text
+ */
+
+.codeKey {
+	padding: 0 3px;
+	margin-right: 1px;
+	border: 1px solid #555555;
+	border-radius: 4px;
+	background-color: #FAFAFA;
+}
+	.notice > .codeKey {  /* If .codeKey exists within .notice */
+		border-color: #999999;
+		padding-right: 4px;
+	}
+
+
+
+/*
+ * Headings
+ */
+
+h1 {
+	font-size: 24px;
+	text-align: center;
+	padding: 0 0 15px;
+	margin-top: 0;
+}
+
+h2 {
+	font-size: 18px;
+	border-top: 1px solid #CDCDCD;
+	margin: 25px 0 5px;
+	padding: 10px 0;
+}
+
+.subHead {
+	font-size: 22px;
+	font-style: italic;
+	color: #AAAAAA;
+}
+
+
+
+/*
+ * Forms
+ */
+
+ input {
+	width: 50px;
+ 	height: 20px;
+	margin-left: 2px;  /* Line-up with select */
+ }
+
+.button {
+	background: -webkit-linear-gradient(top,  #f4f4f4 0%,#e0e0e0 100%);
+	border: 1px solid #AAAAAA;
+	border-radius: 3px;
+	padding: 2px 6px 3px;
+	color: #5B5B5B;
+	text-decoration: none;
+	font-size: 13px;
+}
+
+div.buttonRegion {
+	width: 185px;
+	margin: 20px auto 0;
+	text-align: center;
+}
+
+div.noticePref {
+	margin-top: 5px;
+	font-weight: bold;
+	font-style: italic;
+	color: green;
+	opacity: 0;
+	-webkit-transition: opacity 1s;
+}
+div.noticePref--show {
+	opacity: 1;
+	-webkit-transition: opacity 0.4s;
+}
+
+button {
+	font-family: inherit;
+	cursor: pointer;
+}
+
+
+
+/*
+ * Utility
+ */
+
+a {
+	color: #00008B;
+}
+	.footer a {
+		color: inherit;
+	}
+
+.notice {
+	color: #999999;
+	font-size: 13px;
+	font-style: italic;
+}
+	h2 + .notice {  /* If .notice follows h2 */
+		margin: -15px 0 15px;
+	}
+
+.footer {
+	width: 100%;
+	padding: 10px 0 0;
+	font-size: 12px;
+	color: #999999;
+}
+
+.hidden { display:none; }
+.fleft { float:left; }
+.fright { float:right; }
+ 
+.clearfix { display: inline-block; }
+.clearfix:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}

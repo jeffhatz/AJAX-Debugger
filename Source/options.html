@@ -1,0 +1,111 @@
+<!-- AJAX Debugger Copyright (C) 2013 Jeff Hatz. All rights reserved. -->
+
+
+<html>
+<head>
+	<title>AJAX Debugger Options</title>
+	<link rel="stylesheet" href="styles/styles.css" />
+</head>
+
+
+<body>
+	<div id="options">
+		<h1>AJAX Debugger Preferences</h1>
+
+		<p>With the Chrome Dev Tools open, any AJAX (XMLHttpRequest) calls will be logged to the Console.</p>
+		<p class="notice">*If Dev Tools are closed <span class="codeKey">F12</span>, AJAX calls won't be logged!</p>
+
+		<span id="moreLink">
+			<button class="button showMoreText">Logged info includes...</button>
+		</span>
+
+		<span id="moreText" class="hidden">
+			<ul>
+				<li>File called</li>
+				<li>Response Status</li>
+				<li>Response Time</li>
+				<li>Response Size</li>
+				<li>AJAX source link with all input parameters</li>
+				<li>Object containing all request and response details (response content optional)</li>
+				<li>Warning if response takes longer than set time</li>
+			</ul>
+		</span>
+
+
+		<div id="moduleShowTimeWarning">
+			<h2 class="first">Load Console Entry Expanded</h2>
+			<div class="notice">If response time over threshold, entry will be expanded</div>
+
+			<select id="prefGroupExpanded">
+				<option value="true">Yes</option>
+				<option value="false">No</option>
+			</select>
+		</div>
+
+
+		<div id="moduleShowTimeWarning">
+			<h2 class="first">Show Load Time Warning</h2>
+
+			<select id="prefTimerEnabled">
+				<option value="true">Yes</option>
+				<option value="false">No</option>
+			</select>
+
+			<input type="text" id="prefTimerTime" />
+			<label>ms</label>
+		</div>
+
+
+		<div id="moduleShowResponseObject">
+			<h2>Show Response [Object]</h2>
+
+			<select id="prefShowResponseObject">
+				<option value="true">Yes</option>
+				<option value="false">No</option>
+			</select>
+		</div>
+
+
+		<div id="moduleLoadResponseContent" class="hidden">
+			<h2>Include Response Content in [Object]</h2>
+			<div class="notice">Caution: possible performance impact when enabled</div>
+
+			<select id="prefResponseContent">
+				<option value="true">Yes</option>
+				<option value="false">No</option>
+			</select>
+		</div>
+
+
+		<div id="moduleLoadResponseContentStandalone" class="hidden">
+			<h2>Include Response Content Standalone</h2>
+			<div class="notice">Same info as "Response Content in [Object]",<br />but logged outside [Object]</div>
+
+			<select id="prefResponseContentStandalone">
+				<option value="true">Yes</option>
+				<option value="false">No</option>
+			</select>
+		</div>
+
+
+
+		<div class="buttonRegion">
+			<button class="button saveOptions">Save</button>
+			<button class="button resetOptions">Restore Defaults</button>
+			<div class="noticePref">&nbsp;</div>
+		</div>
+
+
+		<div class="footer clearfix">
+			<div class="fleft">
+				<br /><a href="changelog.html">Change Log</a><br />
+			</div>
+			<div class="fright"><img src="images/icon48.png" /></div>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="scripts/jquery-1.8.0.min.js"></script>
+	<script type="text/javascript" src="scripts/main.js"></script>
+	<script type="text/javascript" src="scripts/options.js"></script>
+</body>
+</html>
