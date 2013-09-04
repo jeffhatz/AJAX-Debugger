@@ -50,18 +50,17 @@ AJAXDebugger.isXHR = function(request) {
 }
 
 AJAXDebugger.getRequestLocation = function(request, url) {
+	// If the URL ends with a '/', "step down" one
+	if (url.lastIndexOf("/") == url.length - 1) {
+		url = url.replace(/\/$/, '');
+	}
+
 	// Get filename and beyond
 	var location = url.substring(url.lastIndexOf("/") + 1);
 
 	// Remove QueryString
 	if (location.indexOf("?") > -1) {
 		location = location.substring(0, location.indexOf("?"));
-	}
-
-	// Truncate
-	var maxVisibleChars = 35;
-	if (location.length > maxVisibleChars + 3) {  // ... is 3 chars, so take into account for truncate length
-		location = location.substring(0, maxVisibleChars) + "...";
 	}
 
 	return location;
@@ -115,7 +114,21 @@ AJAXDebugger.load = function(request) {
 	};
 
 	/* Request Location */
-	requestLocation = AJAXDebugger.getRequestLocation(request, url);
+	if (url.indexOf("F2Apps") > -1) {
+		// If the request is to an OpenF2 app, show the App ID as the location
+		qs.replace(/%22appId%22%3A%22([a-zA-Z0-9_]*)%22/, function(a,b) {
+			requestLocation = b;
+		});
+	}
+	else {
+		requestLocation = AJAXDebugger.getRequestLocation(request, url);
+	}
+
+	/* Truncate Location */
+	var maxVisibleChars = 35;
+	if (location.length > maxVisibleChars + 3) {  // ... is 3 chars, so take into account for truncate length
+		location = location.substring(0, maxVisibleChars) + "...";
+	}
 
 	/* Data formatting */
 	responseTimePrint = AJAXDebugger.formatTime(responseTime);

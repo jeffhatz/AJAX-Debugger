@@ -1,7 +1,7 @@
 {
 	"name": "AJAX Debugger",
 	"manifest_version": 2,
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"minimum_chrome_version": "10.0",
 	"description": "Logs all AJAX activity to the Dev Tools Console, allowing inspection of AJAX calls, and open calls in new tab with all the inputs.",
 	"devtools_page": "debugger.html",
