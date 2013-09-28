@@ -50,6 +50,10 @@ AJAXDebugger.isXHR = function(request) {
 }
 
 AJAXDebugger.getRequestLocation = function(request, url) {
+	// In some rare cases, there may be a '?' in the Query String
+	urlObj = url.split('?');
+	url = urlObj[0];
+
 	// If the URL ends with a '/', "step down" one
 	if (url.lastIndexOf("/") == url.length - 1) {
 		url = url.replace(/\/$/, '');
