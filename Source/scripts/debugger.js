@@ -154,7 +154,7 @@ AJAXDebugger.load = function(request) {
 		else { Console.groupCollapsed(header); }
 
 		/* URL */
-		Console.info(url + qs);
+		Console.log(url + qs);
 
 		/* Long response warning */
 		if (prefTimerEnabled == "true" && responseTime >= prefTimerTimeout) {
@@ -180,15 +180,15 @@ AJAXDebugger.load = function(request) {
 		/* Response object */
 		if (prefShowResponseObject == "true") {
 			if (prefResponseContent == "false" || (prefResponseContent == "true" && prefResponseContentStandalone == "false")) {
-				Console.info(request);
+				Console.log(request);
 			} else {
-				Console.info("XHR Data", request);
+				Console.log("XHR Data", request);
 			}
 		}
 
 		/* Response content, outside of object */
 		if (contentParsed && prefResponseContentStandalone == "true") {
-			Console.info("Response", contentParsed);
+			Console.log("Response", contentParsed);
 		}
 
 		/* Pager */
