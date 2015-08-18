@@ -165,7 +165,13 @@ AJAXDebugger.load = function(request) {
 		var contentParsed = null;
 		if (content) {
 			try {
-				contentParsed = JSON.parse(content);
+				/* Handle JSONP */
+				var contentToParse=content;
+				var checkForJSONP=content.match(/^[ \t]*[\w-]+[ \t*]*\(([\s\S]+)\)[ \t*]*;?\s*$/);
+				if(checkForJSONP!==null)
+					contentToParse=checkForJSONP[1];
+
+				contentParsed = JSON.parse(contentToParse);
 				request.responseContent = contentParsed;
 			}
 			catch (e) {
