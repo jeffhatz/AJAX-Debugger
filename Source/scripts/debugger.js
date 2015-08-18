@@ -142,14 +142,14 @@ AJAXDebugger.load = function(request) {
 	responseTimePrint = AJAXDebugger.formatTime(responseTime);
 	responseSize = AJAXDebugger.formatSize(responseSize);
 
-	var header = 
-		"XHR Loaded (" + 
+	var header =
+		"XHR Loaded (" +
 		requestLocation + textSeperator +
 		responseStatus + textSeperator +
 		responseTimePrint + textSeperator +
 		responseSize +
 		")";
-	
+
 	/* If long response, expand */
 	if (prefTimerEnabled == "true" && responseTime >= prefTimerTimeout) { prefGroupExpanded = "true"; }
 
@@ -164,7 +164,7 @@ AJAXDebugger.load = function(request) {
 		if (prefTimerEnabled == "true" && responseTime >= prefTimerTimeout) {
 			Console.warn("Time over " + prefTimerTimeout + "ms");
 		}
-		
+
 		/* Response body */
 		var contentParsed = null;
 		if (content) {
