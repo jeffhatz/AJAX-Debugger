@@ -8,6 +8,7 @@ var defGroupExpanded = "false",
 	defShowResponseObject = "true";
 	defResponseContent = "false",
 	defResponseContentStandalone = "false";
+	defRequestContentStandalone = "false";
 
 loadOptions();
 bindEvents();
@@ -28,6 +29,7 @@ function bindEvents() {
 		localStorage["prefTimerTime"] = parseInt(getSelectValue("prefTimerTime"));
 		localStorage["prefResponseContent"] = getSelectValue("prefResponseContent");
 		localStorage["prefResponseContentStandalone"] = getSelectValue("prefResponseContentStandalone");
+		localStorage["prefRequestContentStandalone"] = getSelectValue("prefRequestContentStandalone");
 		localStorage["prefShowResponseObject"] = getSelectValue("prefShowResponseObject");
 
 		renderNoticePref("Preferences Saved");
@@ -42,6 +44,7 @@ function bindEvents() {
 			localStorage["prefTimerTime"] = defTimerTime;
 			localStorage["prefResponseContent"] = defResponseContent;
 			localStorage["prefResponseContentStandalone"] = defResponseContentStandalone;
+			localStorage["prefRequestContentStandalone"] = defRequestContentStandalone;
 			localStorage["prefShowResponseObject"] = defShowResponseObject;
 			renderNoticePref("Default preferences loaded");
 
@@ -67,6 +70,7 @@ function loadOptions() {
 		timerTime = localStorage["prefTimerTime"] || defTimerTime;
 		responseContent = localStorage["prefResponseContent"] || defResponseContent;
 		responseObjectStandalone = localStorage["prefResponseContentStandalone"] || defResponseContentStandalone;
+		requestObjectStandalone = localStorage["prefRequestContentStandalone"] || defRequestContentStandalone;
 		responseObject = localStorage["prefShowResponseObject"] || defShowResponseObject;
 
 	setSelectValue("prefGroupExpanded", groupExpanded);
@@ -74,6 +78,7 @@ function loadOptions() {
 	document.getElementById("prefTimerTime").value = timerTime;
 	setSelectValue("prefResponseContent", responseContent);
 	setSelectValue("prefResponseContentStandalone", responseObjectStandalone);
+	setSelectValue("prefRequestContentStandalone", requestObjectStandalone);
 	setSelectValue("prefShowResponseObject", responseObject);
 
 	displayLoadResponseContent($("#prefShowResponseObject"));  //Show #moduleLoadResponseContent
