@@ -200,6 +200,7 @@ AJAXDebugger.load = function(request) {
 		if(prefRequestContentStandalone == "true") {
 			/* Compile the request parameters into an object */
 			var requestObject={};
+			function decodeVal(s) { return decodeURIComponent(s.replace(/\+/g, ' ')); }
 			function addToRequestObject(memberLookupArray) { /* memberLookupArray=[object, MEMBERNAME, MEMBERNAME, ...] */
 				/* Get the member if it exists, or exit otherwise */
 				var lookupObj=memberLookupArray[0];
@@ -209,7 +210,7 @@ AJAXDebugger.load = function(request) {
 
 				/* Get the items from the parameter array */
 				for(var i=0;i<lookupObj.length;i++)
-					requestObject[lookupObj[i].name]=lookupObj[i].value;
+					requestObject[decodeVal(lookupObj[i].name)]=decodeVal(lookupObj[i].value);
 
 			}
 			//addToRequestObject([request, 'request', 'cookies']); /* Add cookies to request object */
