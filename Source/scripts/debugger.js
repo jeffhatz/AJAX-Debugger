@@ -197,7 +197,7 @@ AJAXDebugger.load = function(request) {
 		}
 
 		/* Request content, outside of object */
-		if(prefRequestContentStandalone == "true") {
+		function GetReqestData() {
 			/* Compile the request parameters into an object */
 			var requestObject={};
 			function decodeVal(s) { return decodeURIComponent(s.replace(/\+/g, ' ')); }
@@ -217,7 +217,10 @@ AJAXDebugger.load = function(request) {
 			addToRequestObject([request, 'request', 'queryString']); /* Add get to request object */
 			addToRequestObject([request, 'request', 'postData', 'params']); /* Add post to request object */
 
-			Console.log("Request", requestObject);
+			return requestObject;
+		}
+		if(prefRequestContentStandalone == "true") {
+			Console.log("Request", GetReqestData());
 		}
 
 		/* Response content, outside of object */
