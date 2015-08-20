@@ -20,6 +20,9 @@ if (!localStorage["prefResponseContent"]) {
 if (!localStorage["prefResponseContentStandalone"]) {
 	localStorage["prefResponseContentStandalone"] = "false";
 }
+if (!localStorage["prefRequestContentStandalone"]) {
+	localStorage["prefRequestContentStandalone"] = "false";
+}
 
 
 chrome.devtools.network.onRequestFinished.addListener(function(request) {
@@ -110,6 +113,7 @@ AJAXDebugger.load = function(request) {
 		prefTimerTimeout = localStorage["prefTimerTime"],
 		prefResponseContent = localStorage["prefResponseContent"];
 		prefResponseContentStandalone = localStorage["prefResponseContentStandalone"];
+		prefRequestContentStandalone = localStorage["prefRequestContentStandalone"];
 		prefShowResponseObject = localStorage["prefShowResponseObject"];
 
 	for (var i=0, len=params.length; i<len; i++) {
@@ -138,18 +142,19 @@ AJAXDebugger.load = function(request) {
 	responseTimePrint = AJAXDebugger.formatTime(responseTime);
 	responseSize = AJAXDebugger.formatSize(responseSize);
 
-	var header = 
-		"XHR Loaded (" + 
+	var header =
+		"XHR Loaded (" +
 		requestLocation + textSeperator +
 		responseStatus + textSeperator +
 		responseTimePrint + textSeperator +
 		responseSize +
 		")";
-	
+
 	/* If long response, expand */
 	if (prefTimerEnabled == "true" && responseTime >= prefTimerTimeout) { prefGroupExpanded = "true"; }
 
 	var render = function(content) {
+		Console.buffer();
 		if (prefGroupExpanded == "true") { Console.group(header); }
 		else { Console.groupCollapsed(header); }
 
@@ -160,12 +165,18 @@ AJAXDebugger.load = function(request) {
 		if (prefTimerEnabled == "true" && responseTime >= prefTimerTimeout) {
 			Console.warn("Time over " + prefTimerTimeout + "ms");
 		}
-		
+
 		/* Response body */
 		var contentParsed = null;
 		if (content) {
 			try {
-				contentParsed = JSON.parse(content);
+				/* Handle JSONP */
+				var contentToParse=content;
+				var checkForJSONP=content.match(/^[ \t]*[\w-]+[ \t*]*\(([\s\S]+)\)[ \t*]*;?\s*$/);
+				if(checkForJSONP!==null)
+					contentToParse=checkForJSONP[1];
+
+				contentParsed = JSON.parse(contentToParse);
 				request.responseContent = contentParsed;
 			}
 			catch (e) {
@@ -186,6 +197,33 @@ AJAXDebugger.load = function(request) {
 			}
 		}
 
+		/* Request content, outside of object */
+		function GetReqestData() {
+			/* Compile the request parameters into an object */
+			var requestObject={};
+			function decodeVal(s) { return decodeURIComponent(s.replace(/\+/g, ' ')); }
+			function addToRequestObject(memberLookupArray) { /* memberLookupArray=[object, MEMBERNAME, MEMBERNAME, ...] */
+				/* Get the member if it exists, or exit otherwise */
+				var lookupObj=memberLookupArray[0];
+				for(var i=1;i<memberLookupArray.length;i++)
+					if(!(lookupObj=lookupObj[memberLookupArray[i]]))
+						return;
+
+				/* Get the items from the parameter array */
+				for(var i=0;i<lookupObj.length;i++)
+					requestObject[decodeVal(lookupObj[i].name)]=decodeVal(lookupObj[i].value);
+
+			}
+			//addToRequestObject([request, 'request', 'cookies']); /* Add cookies to request object */
+			addToRequestObject([request, 'request', 'queryString']); /* Add get to request object */
+			addToRequestObject([request, 'request', 'postData', 'params']); /* Add post to request object */
+
+			return requestObject;
+		}
+		if(prefRequestContentStandalone == "true") {
+			Console.log("Request", GetReqestData());
+		}
+
 		/* Response content, outside of object */
 		if (contentParsed && prefResponseContentStandalone == "true") {
 			Console.log("Response", contentParsed);
@@ -195,6 +233,7 @@ AJAXDebugger.load = function(request) {
 		// AJAXDebugger.pager();
 
 		Console.groupEnd();
+		Console.flush();
 	}
 
 	if (prefShowResponseObject == "true" && prefResponseContent == "true") {

@@ -17,10 +17,13 @@ Console.Type = {
 };
 
 Console.addMessage = function(type, format, args) {
+	if (isBuffering)
+		return buffer.push(JSON.stringify(Array.prototype.slice.call(arguments, 0)));
+
 	chrome.extension.sendRequest({
 			command: "sendToConsole",
 			tabId: chrome.devtools.tabId,
-			args: escape(JSON.stringify(Array.prototype.slice.call(arguments, 0)))
+			args: escape(JSON.stringify([Array.prototype.slice.call(arguments, 0)]))
 	});
 };
 
@@ -32,3 +35,18 @@ Console.addMessage = function(type, format, args) {
 		Console[method_name] = Console.addMessage.bind(Console, method_name);
 	}
 })();
+
+//Handle buffering
+var buffer = [], isBuffering = false;
+Console.buffer = function() {
+	isBuffering = true;
+};
+Console.flush = function() {
+	isBuffering = false;
+	chrome.extension.sendRequest({
+		command: "sendToConsole",
+		tabId: chrome.devtools.tabId,
+		args: escape('['+buffer.join(',')+']')
+	});
+	buffer.length=0;
+};
