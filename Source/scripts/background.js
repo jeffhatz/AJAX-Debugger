@@ -4,8 +4,9 @@
 
 
 const tab_log = function(json_args) {
-	var args = JSON.parse(unescape(json_args));
-	console[args[0]].apply(console, Array.prototype.slice.call(args, 1));
+	var argslist = JSON.parse(unescape(json_args));
+	for (var i=0; i<argslist.length; i++)
+		console[argslist[i][0]].apply(console, argslist[i].slice(1)); //Array.prototype.slice not needed, as JSON.parse returns proper arrays
 }
 
 chrome.extension.onRequest.addListener(function(request) {

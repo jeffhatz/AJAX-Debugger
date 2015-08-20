@@ -154,6 +154,7 @@ AJAXDebugger.load = function(request) {
 	if (prefTimerEnabled == "true" && responseTime >= prefTimerTimeout) { prefGroupExpanded = "true"; }
 
 	var render = function(content) {
+		Console.buffer();
 		if (prefGroupExpanded == "true") { Console.group(header); }
 		else { Console.groupCollapsed(header); }
 
@@ -232,6 +233,7 @@ AJAXDebugger.load = function(request) {
 		// AJAXDebugger.pager();
 
 		Console.groupEnd();
+		Console.flush();
 	}
 
 	if (prefShowResponseObject == "true" && prefResponseContent == "true") {
